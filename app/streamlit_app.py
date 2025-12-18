@@ -17,7 +17,7 @@ from src.utils import plot_trend_over_years, correlation_heatmap, summary_statis
 # Page config
 st.set_page_config(
     page_title="Bhutan Maternal Health Analytics",
-    page_icon="🏥",
+    # page_icon="",
     layout="wide"
 )
 
@@ -27,7 +27,7 @@ st.markdown("""
     .main-header {
         font-size: 3rem;
         color: #1E88E5;
-        text-align: center;
+        
         margin-bottom: 2rem;
     }
     .sub-header {
@@ -45,16 +45,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title
-st.markdown('<h1 class="main-header">🏥 Bhutan Maternal Health Analytics Dashboard</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">Bhutan Maternal Health Analytics Dashboard</h1>', unsafe_allow_html=True)
 st.markdown("**WHO Health Data Analysis & ML Predictions (2000-2023)**")
 
 # Sidebar
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", [
-    "📊 Data Overview",
-    "🔍 Exploratory Analysis",
-    "🤖 ML Predictions",
-    "📈 Trends & Insights"
+    "Data Overview",
+    "Exploratory Analysis",
+    "ML Predictions",
+    "Trends & Insights"
 ])
 
 # Load data
@@ -75,8 +75,8 @@ if df is None:
     st.stop()
 
 # ==================== PAGE 1: DATA OVERVIEW ====================
-if page == "📊 Data Overview":
-    st.header("📊 Dataset Overview")
+if page == "Data Overview":
+    st.header("Dataset Overview")
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -99,8 +99,8 @@ if page == "📊 Data Overview":
     st.dataframe(summary_statistics_report(df), use_container_width=True)
 
 # ==================== PAGE 2: EXPLORATORY ANALYSIS ====================
-elif page == "🔍 Exploratory Analysis":
-    st.header("🔍 Exploratory Data Analysis")
+elif page == "Exploratory Analysis":
+    st.header("Exploratory Data Analysis")
     
     tab1, tab2, tab3 = st.tabs(["📈 Time Trends", "🔗 Correlations", "📊 Distributions"])
     
@@ -163,8 +163,8 @@ elif page == "🔍 Exploratory Analysis":
         st.pyplot(fig)
 
 # ==================== PAGE 3: ML PREDICTIONS ====================
-elif page == "🤖 ML Predictions":
-    st.header("🤖 Machine Learning Predictions")
+elif page == "ML Predictions":
+    st.header("Machine Learning Predictions")
     
     # Check if models exist
     if not os.path.exists('models/risk_classifier.pkl'):
@@ -183,7 +183,7 @@ elif page == "🤖 ML Predictions":
     
     classifier, regressor, class_features, reg_features = load_models()
     
-    st.subheader("🎯 Predict Maternal Health Risk Level")
+    st.subheader("Predict Maternal Health Risk Level")
     
     col1, col2 = st.columns(2)
     
@@ -213,7 +213,7 @@ elif page == "🤖 ML Predictions":
         'Anaemia_MA3': [anaemia_ma3]
     })
     
-    if st.button("🔮 Predict Risk Level", type="primary"):
+    if st.button("Predict Risk Level", type="primary"):
         prediction = classifier.predict(input_data)[0]
         probabilities = classifier.predict_proba(input_data)[0]
         
@@ -233,10 +233,10 @@ elif page == "🤖 ML Predictions":
         st.pyplot(fig)
 
 # ==================== PAGE 4: TRENDS & INSIGHTS ====================
-elif page == "📈 Trends & Insights":
-    st.header("📈 Key Trends & Insights")
+elif page == "Trends & Insights":
+    st.header("Key Trends & Insights")
     
-    st.subheader("🎯 Key Performance Indicators")
+    st.subheader("Key Performance Indicators")
     
     # Calculate KPIs
     latest_year = df[df['Year'] == 2023].iloc[0]
@@ -276,7 +276,7 @@ elif page == "📈 Trends & Insights":
             delta_color="inverse"
         )
     
-    st.subheader("📊 Progress Overview")
+    st.subheader("Progress Overview")
     
     # Multi-line chart
     fig, ax = plt.subplots(figsize=(14, 6))
@@ -297,13 +297,13 @@ elif page == "📈 Trends & Insights":
     ax.grid(True, alpha=0.3)
     st.pyplot(fig)
     
-    st.subheader("💡 Key Insights")
+    st.subheader("Key Insights")
     
     st.info(f"""
     **Major Achievements (2000-2023):**
-    - ✅ Skilled birth attendance increased from {skilled_2000:.1f}% to {skilled_2023:.1f}%
-    - ✅ Adolescent birth rate decreased from {adol_2000:.1f} to {adol_2023:.1f} per 1000 women
-    - ⚠️ Anaemia prevalence changed from {anaemia_2000:.1f}% to {anaemia_2023:.1f}%
+    - Skilled birth attendance increased from {skilled_2000:.1f}% to {skilled_2023:.1f}%
+    - Adolescent birth rate decreased from {adol_2000:.1f} to {adol_2023:.1f} per 1000 women
+    - Anaemia prevalence changed from {anaemia_2000:.1f}% to {anaemia_2023:.1f}%
     
     **Overall Assessment:** Bhutan has made significant progress in maternal health services over the past two decades.
     """)
